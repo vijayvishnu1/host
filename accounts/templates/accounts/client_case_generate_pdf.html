@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>pdf</title>
+    <head>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+
+#customers th {
+  padding-top:12px;
+  padding-bottom:12px;
+  text-align: center;
+
+  background-color: black;
+  color: white;
+}
+p{
+text-align: left;
+text-size:20px
+
+}
+</style>
+</head>
+<body>
+<!--<img src="static/site_logo.jpg" alt="user logo" height="150px">-->
+<!--    <hr>-->
+<!--    <img src="{{ user.logo.path }}" alt="user logo" height="150px">-->
+
+<h1 style=" font-family: 'Courier New', monospace;text-align:center;text-shadow: 2px 2px 5px red; font-size: 30px;">MY Attorney</h1>
+<table id="customers">
+  <tr>
+    <th>Client</th>
+    <th>Case id</th>
+    <th>Case title</th>
+         <th>Case description</th>
+  </tr>
+  <tr>
+      <td> {{ user.user }}</td>
+   <td> {{ user.case_id|linebreaks }}  </td>
+     <td> {{ user.title|linebreaks }}  </td>
+  <td>{{ user.description|linebreaks }}  </td>
+  </tr>
+    </table>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+<p> My attorney pvltd</p>
+<p> Lc No :3905</p>
+<p> Kottayam ,kerala</p>
+<p>{{ user.last_modified|linebreaks }}  </p>
+<span> <img src="static/images/acase.png" alt="user logo" height="200px" width="200px"></span>
+</body>
+</html>

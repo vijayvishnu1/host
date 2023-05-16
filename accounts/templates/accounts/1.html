@@ -1,0 +1,196 @@
+{% extends 'accounts/clientheader.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+<head>
+
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<style>
+  .move{
+  position: absolute;
+    top: 100px;
+    left: 150px;
+    width: 1000px  ;
+  }
+</style>
+    <script>
+
+       function titlevalid() {
+    var cou = document.getElementById('title').value;
+     if (cou.trim() === "") {
+        document.getElementById('terror').innerHTML = " field can't be null";
+        return false;
+    } else if (!/^[A-Za-z\s-]+$/.test(cou)) {
+        document.getElementById('terror').innerHTML = "Invalid characters or format for case title";
+        return false;
+    } else {
+        document.getElementById('terror').innerHTML = " ";
+        return true;
+    }
+}
+function validatecasetype() {
+  var selectedOption = document.getElementById('ctype').value;
+  if (!selectedOption) {
+    document.getElementById('type_error').innerHTML = "Case type field can't be empty";
+    return false;
+  } else {
+    document.getElementById('type_error').innerHTML = "";
+    return true;
+  }
+}
+     function namevalid() {
+    var cou = document.getElementById('dname').value;
+    if (cou.trim() === "") {
+        document.getElementById('nerror').innerHTML = " field can't be null";
+        return false;
+    } else if (!/^[a-zA-Z\s-]+$/.test(cou)) {
+        document.getElementById('nerror').innerHTML = "Invalid characters or format for name";
+        return false;
+    } else {
+        document.getElementById('nerror').innerHTML = " ";
+        return true;
+    }
+}
+function validatePdf() {
+  var file = document.getElementById("pdfFile").files[0];
+  var pdfError = document.getElementById("pdfError");
+
+  if (!file) {
+    pdfError.innerHTML = "Please select a file.";
+    return false;
+  }
+
+  if (!file.type.includes("pdf")) {
+    pdfError.innerHTML = "Please select a PDF file.";
+    return false;
+  }
+
+  if (file.size > 5000000) {
+    pdfError.innerHTML = "File size should not exceed 5 MB.";
+    return false;
+  }
+
+  var filename = file.name;
+  var extension = filename.substr(filename.lastIndexOf('.') + 1).toLowerCase();
+  if (extension != "pdf") {
+    pdfError.innerHTML = "File should have a .pdf extension.";
+    return false;
+  }
+
+  pdfError.innerHTML = "";
+  return true;
+}
+function addressvalid()
+        {
+        var address1 = document.getElementById('address').value;
+        if (address1.trim() === "") {
+            document.getElementById('address_error').innerHTML = " address field can't be null";
+            return false;
+        } else if (!/^[\w\s,./-]+$/.test(address1)) {
+            document.getElementById('address_error').innerHTML = "Invalid characters or format for  address";
+            return false;
+        } else {
+            document.getElementById('address_error').innerHTML = " ";
+            return true;
+        }
+    }
+
+    function description1() {
+  var d = document.getElementById('discrip1').value;
+  var wordCount = d.trim().split(/\s+/).length;
+
+  if (d.trim() === "") {
+    document.getElementById('diserror').innerHTML = "Field can't be empty";
+    return false;
+  } else if (!/^[a-zA-Z0-9\s.,?!()-]*$/.test(d)) {
+    document.getElementById('diserror').innerHTML = "Invalid characters";
+    return false;
+  } else if (wordCount < 25) {
+    document.getElementById('diserror').innerHTML = "Description must have at least 25 words";
+    return false;
+  } else {
+    document.getElementById('diserror').innerHTML = "";
+    return true;
+  }
+}
+function validateForm() {
+ if (!titlevalid() || !validatecasetype() || !namevalid() || !validatePdf() || !addressvalid() || !description1()) {
+    event.preventDefault();
+alert("Form can't be submitted. Please check the form fields.");
+    return false;
+  } else {
+    // All conditions are true, allow the form to be submitted
+    return true;
+  }
+}
+    </script>
+
+</head>
+<body>
+
+<form  method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <div class="move">
+  <div class="form-row">
+    <div class="col">
+      <label>Case Title</label>
+            {% render_field form.title  placeholder=" Enter The Title" type="text" id="title"  class="form-control" onkeyup="titlevalid()" %}
+       <div> <span id="terror" style="color:red;" > </span> </div>
+
+    </div>
+    <div class="col">
+        <label for=>Case Type</label>
+			            {% render_field form.case_type id="ctype" class="form-control" onchange="validatecasetype()" %}
+  <div><span id="type_error" style="color:red;"></span></div>
+
+    </div>
+  </div>
+   <div class="form-row">
+    <div class="col">
+        <br>
+        <label>Defedant Name</label>
+        {% render_field form.defendant_name placeholder=" Enter The Defedant Name Here"  class="form-control" id="dname" onkeyup="namevalid()" %}
+      <div><span id="nerror" style="color:red;"></span></div>
+
+    </div>
+    <div class="col">
+        <br>
+        <label>Proof</label>
+        <br>
+        {% render_field form.proof  id="pdfFile" name="pdfFile" onchange="validatePdf()" %}
+        <div><span id="pdfError" style="color:red;"></span></div>
+    </div>
+  </div>
+
+    <div class="row">
+    <div class="col">
+        <br>
+        <label >Defedant Address</label>
+        {% render_field form.defendant_address id="address" placeholder=" Enter The Address of Defedant Here"  class="form-control" onkeyup="addressvalid()" %}
+   <div> <span id="address_error" style="color:red;" > </span> </div>
+    </div>
+
+    <div class="col">
+            <br>
+        <label>Case Description</label>
+
+        {% render_field form.description id="discrip1" placeholder=" Enter The Case Description Here"  class="form-control" onkeyup="description1()" %}
+             <div> <span id="diserror" style="color:red;"></span> </div>
+
+    </div>
+  </div>
+<center>
+    <br>
+<!-- <input type="submit" value="Submit" class="btn btn-success" >-->
+    <button type="submit" class="btn btn-success">
+  <i class="fa fa-check" aria-hidden="true"></i> Submit
+</button>
+
+    <button type="cancel" class="btn btn-danger" onclick="window.location='http://127.0.0.1:8000/Client_case_option/';return false;"><i class="fa fa-times" aria-hidden="true"></i>Cancel</button>
+</center>
+    </div>
+
+</form>
+</div>
+</body>
+
+{% endblock %}

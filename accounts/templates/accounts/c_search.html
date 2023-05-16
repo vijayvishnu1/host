@@ -1,0 +1,221 @@
+{% extends 'accounts/clientheader.html' %}
+{% load static %}
+{% block content %}
+<style>
+
+.search-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.search-box input[type="text"] {
+  flex-grow: 1;
+  border: none;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+.search-box button[type="submit"] {
+  background-color: #0d11e5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.result_div{
+position: fixed;
+    top: 20%;
+    left: 20%;
+    width: 85%; /* Set a fixed width */
+    height: 600px; /* Set a fixed height */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    overflow-x: visible; /* Disable horizontal scrolling */
+}
+select.form-control {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  height: calc(2.25rem + 2px);
+}
+    .card {
+        display: inline-block;
+        margin: 10px;
+        width: 300px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .card-content {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .card h3 {
+        margin-top: 0;
+        font-size: 24px;
+    }
+
+    .card p {
+        font-size: 18px;
+        line-height: 1.5;
+    }
+    button.btn-primary {
+  border-radius: 0;
+  transition: box-shadow 0.3s ease;
+}
+
+button.btn-primary:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.sort_div{
+position:fixed;
+    top: 13%;
+    left: 40%;
+
+}
+.search_div{
+position:fixed;
+    top: 12%;
+    left: 20%;
+
+}
+
+
+.btn1 {
+  appearance: none;
+    -webkit-appearance: none;
+  font-family: sans-serif;
+  cursor: pointer;
+  padding: 12px;
+  min-width: 100px;
+  border: 0px;
+    -webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+     transition: background-color 100ms linear;
+}
+
+.btn1:focus, .btn1.focus {
+  outline: 0;
+}
+
+
+
+.btn1-round-2 {
+  border-radius: 20px;
+}
+.btn1-warning {
+  background: #0950e7;
+  color: #ffffff;
+}
+
+.btn1-warning:hover {
+  background: #19a7ee;
+  color: #ffffff;
+}
+.cbutton{
+
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #060af3;
+    color: white;
+    cursor: pointer;
+
+}
+.cbutton:hover{
+    background-color: #8c8ef5;
+}
+
+
+</style>
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-3">
+
+          <div class="sort_div">
+        <form method="GET">
+          <select class="form-control mb-2" name="specifications">
+            <option value="">All</option>
+            {% for specialization in specializations %}
+              <option value="{{ specialization }}" {% if specialization == request.GET.specifications %}selected{% endif %}>{{ specialization }}</option>
+            {% endfor %}
+          </select>
+          <button class="btn1 btn1-warning btn1-round-2" type="submit">Filter</button>
+
+        </form>
+
+          </div>
+      </div>
+      <div class="col-md-9">
+          <div class="search_div">
+        <form method="GET" class="mb-3">
+         <div class="input-group search-box">
+            <input type="text" class="" placeholder="Search..." name="q" value="{{ request.GET.q }}">
+           <div class="input-group-append">
+             <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+           </div>
+
+            </div>
+
+        </form>
+        <div class="result_div">
+        {% if advocates %}
+          <ul class="list-group">
+           {% for advocate in advocates %}
+    <div class="card">
+        <img src="{{ advocate.pimage.url }}" alt="Advocate Image">
+        <div class="card-content">
+            <h3>{{ advocate.user.get_full_name }}</h3>
+            <h5>{{ advocate.specifications}} lawyer</h5>
+
+            <a href="{% url 'advocate_details' advocate.user_id  %}"  ><button class="cbutton">
+                            <span class="icon is-small">
+<i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                            </span>
+                            <span>More details</span>
+                             </button></a>
+
+
+
+
+
+        </div>
+    </div>
+{% endfor %}
+    {% else %}
+        <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+
+          <p style="font-size: 24px; color: #333;">Sorry, no results were found.</p>
+          </div>
+
+    {% endif %}
+          </ul>
+
+      </div>
+
+</div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

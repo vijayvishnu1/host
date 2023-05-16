@@ -1,0 +1,201 @@
+{% extends 'accounts/advocateheader.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<title>FEEDBACK form</title>
+<style type="text/css">
+body{
+	background:url('185289.jpg');
+	background-size:cover;
+	font-family:arial;
+}.wrap{
+	max-width:350px;
+	border-radius:20px;
+	margin:auto;
+	background:rgba(0,0,0,0.8);
+	box-sizing:border-box;
+	padding:40px;
+	color:#fff;
+	margin-top:100px;
+}
+h2{
+	text-align:center;
+}
+h3{
+	color:white;
+	text-align:center;
+}
+input[type=text]{
+	width:100%;
+	box-sizing:border-box;
+	padding:12px 5px;
+	background:rgba(0,0,0,0.10);
+	outline:none;
+	border:none;
+	border-bottom:1px dotted #fff;
+	color:white;
+	border-radius:5px;
+	margin:5px;
+	font-weight:bold;
+}textarea{
+width:100%;
+	box-sizing:border-box;
+	padding:60px 60px;
+	background:rgba(0,0,0,0.10);
+	outline:none;
+	border:none;
+	border-bottom:1px dotted #fff;
+	color:#fff;
+	border-radius:5px;
+	margin:5px;
+	font-weight:bold;
+}
+input[type=submit],button{
+	width:100%;
+	box-sizing:border-box;
+	padding:10px 0;
+	margin-top:30px;
+	outline:none;
+	border:none;
+	background:red;
+	opacity:0.7;
+	border-radius:20px;
+	font-size:20px;
+	color:#fff;
+}
+input[type=submit]:hover{
+	background:yellow;
+	opacity:0.7;
+}
+button:hover{
+	background:yellow;
+	opacity:0.7;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+::placeholder {
+    color: white;
+    opacity:0.8;
+    }
+
+
+</style>
+    <script>
+    function titlevalid()
+         {
+
+             var title = document.getElementById('name').value;
+             if(title=="")
+        	 {
+                 document.getElementById('title_error').innerHTML="name field  cant be empty";
+                 return false;
+             }
+             else if(/^[a-zA-Z]+$/.test(title) == false)
+             {
+                 document.getElementById('title_error').innerHTML="Alphabets are only allowed";
+                 return false;
+             }
+
+             else if (title.length < 4)
+ 		     {
+                 document.getElementById('title_error').innerHTML="name must be of aleast 4 characters";
+                 return false;
+   			 }
+   			 else if(/^[a-zA-Z]+$/.test(title) == true && title.length > 4)
+             {
+                 document.getElementById('title_error').innerHTML="";
+                 return true;
+             }
+   			 else{  document.getElementById('title_error').innerHTML="";
+
+                     return true;
+                     }
+   		 }
+   		 function email_validate()
+		{
+		 	var email = document.getElementById('email').value;
+		 	 if(email=="")
+             {
+                 document.getElementById('email_error').innerHTML="**Enter an email id**";
+                 return false;
+             }
+             else if((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)==false))
+             {
+                 document.getElementById('email_error').innerHTML="**Enter a valid email id**";
+                   return false;
+             }
+             else if((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)==true))
+             {
+             		document.getElementById('email_error').innerHTML="";
+             		return true;
+             		}
+
+		}
+		function countWord() {
+
+
+            var words = document.getElementById("message").value;
+            var count = 0;
+            var split = words.split(' ');
+            for (var i = 0; i < split.length; i++) {
+                if (split[i] != "") {
+                    count += 1;
+                }
+            }
+
+           if(count < 10){
+            document.getElementById("des_error").innerHTML ="atleast 10 words needed";
+                }
+                else{
+                document.getElementById("des_error").innerHTML ="";
+                }
+        }
+    </script>
+
+</head>
+<body>
+<div class="wrap">
+<h1>CONTACT US</h1>
+<form method="POST" autocomplete="off">
+                         {% render_field form.name type="text" placeholder="enter your name" id="name" onkeyup="titlevalid()" %}
+    <div> <span id="title_error" style="color:red;" > </span> </div>
+     {% render_field form.email class='' type="text" placeholder="enter your email" id="email" onkeyup="email_validate()" %}
+    <div> <span id="email_error" style="color:red;" > </span> </div>
+     {% render_field form.message class='' type="textarea"  placeholder="enter your query" id="message" oninput="countWord()" %}
+    <div> <span id="des_error" style="color:red;" > </span> </div>
+
+
+<input type="submit" value="submit">
+</form>
+</div>
+</body>
+</html>
+{% endblock %}
+

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #7abecc !important;
+		}
+		.user_card {
+			width: 350px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: #74cfbf;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+		.form_container {
+			margin-top: 20px;
+		}
+
+		#form-title{
+			color: #fff;
+		}
+		.login_btn {
+			width: 100%;
+			background: #33ccff !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+
+	</style>
+
+	<script>
+        function validate_username()
+         {
+
+             var username = document.getElementById('user_id').value;
+             if(username=="")
+        	 {
+                 document.getElementById('username_error').innerHTML="**User name cant be empty**";
+                 return false;
+             }
+             else if(/^[a-zA-Z0-9]+$/.test(username) == false)
+             {
+                 document.getElementById('username_error').innerHTML="**Please enter a valid User name**";
+                 return false;
+             }
+             else if (username.length < 5)
+ 		     {
+                 document.getElementById('username_error').innerHTML="**User name must be of aleast 5 characters **";
+                 return false;
+   			 }
+   			 else if(/^[a-zA-Z0-9]+$/.test(username) == true && username.length > 5)
+             {
+                 document.getElementById('username_error').innerHTML="";
+                 return true;
+             }
+   			 else
+                     return true;
+   		 }
+
+		function email_validate()
+		{
+			var email = document.getElementById('email_id').value;
+		 	if(email=="")
+             {
+                 document.getElementById('email_error').innerHTML="**Enter an email id**";
+                 return false;
+             }
+             else if((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)==false))
+             {
+                 document.getElementById('email_error').innerHTML="**Enter a valid email id**";
+                   return false;
+             }
+             else if((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)==true))
+             {
+             		document.getElementById('email_error').innerHTML="";
+             		return true;
+             		}
+
+		}
+		function vfname()
+		{
+		 var fname=document.getElementById('fid').value;
+			  if(fname=="")
+				 {
+					 document.getElementById('fname_error').innerHTML="**Enter your first name**";
+					 return false;
+				 }
+				 else if(/^[a-zA-Z]+$/.test(fname) == false)
+				 {
+					 document.getElementById('fname_error').innerHTML="**Please enter a valid first name**";
+					 return false;
+				 }
+				 else if(/^[a-zA-Z]+$/.test(fname) == true)
+				 {
+				  document.getElementById('fname_error').innerHTML="";
+					 return true;
+				 }
+             		return true;
+		  }
+
+		  function lname()
+		  {
+		  var lname=document.getElementById('lid').value;
+			  if(lname=="")
+				 {
+					 document.getElementById('lname_error').innerHTML="**Enter your last name**";
+					 return false;
+				 }
+				 else if(/^[a-zA-Z]+$/.test(lname) == false)
+				 {
+					 document.getElementById('lname_error').innerHTML="**Please enter a valid last name**";
+					 return false;
+				 }
+				 else if(/^[a-zA-Z]+$/.test(lname) == true)
+				 {
+					 document.getElementById('lname_error').innerHTML="";
+					 return true;
+					 }
+				  else
+             		return true;
+		  }
+<!--		  function license()-->
+<!--		  {-->
+<!--			  var phone=document.getElementById('licid').value;-->
+<!--			   if(phone=="")-->
+<!--				 {-->
+<!--					 document.getElementById('license_error').innerHTML="**Enter your license number**";-->
+<!--					 return false;-->
+<!--				 }-->
+<!--				 else if(/^[a-zA-Z0-9]+$/.test(phone) == false)-->
+<!--				 {-->
+<!--					 document.getElementById('license_error').innerHTML="**Enter a valid license number**";-->
+<!--					 return false;-->
+<!--				 }-->
+
+<!--				 else if(/^[a-zA-Z0-9]+$/.test(fname) == true)-->
+<!--				 {-->
+<!--					 document.getElementById('license_error').innerHTML="";-->
+<!--					 return true;-->
+<!--				 }-->
+<!--				 else-->
+<!--					return true;-->
+<!--           }-->
+           function address()
+           {
+           		var address=document.getElementById('addressid').value;
+           		 if(address=="")
+             	 {
+					 document.getElementById('address_error').innerHTML="**please fill your office address**";
+					 return false;
+             	 }
+
+					else
+             		 return true;
+
+           }
+           function pass1()
+           {
+				var paas1=document.getElementById('password1').value;
+				if(pass1=="")
+				{
+					document.getElementById('pass1_error').innerHTML="**password cant be null**";
+					 return false;
+				}
+				else
+				{
+				document.getElementById('pass1_error').innerHTML="";
+                 return true;
+				}
+
+
+
+           }
+
+           function pass2()
+           {
+				var paas1=document.getElementById('password1').value;
+				var paas1=document.getElementById('password1').value;
+				if(pass2=="")
+				{
+				document.getElementById('pass1_error').innerHTML="** confirm password cant be null**";
+                 return false;
+				}
+				else if(pass1 != pass2)
+				{
+				document.getElementById('pass1_error').innerHTML="password dosent match";
+                 return false;
+
+				}
+				else
+				return true;
+
+
+
+           }
+
+
+     </script>
+
+
+
+
+</head>
+<body>
+	<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<h3 id="form-title">REGISTER  ACCOUNT</h3>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+
+					<form name="" onsubmit="" method="POST" action="">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							{{form.username}}
+						</div>
+						<div> <span id="username_error" style="color:red;" > </span> </div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+							</div>
+							{{form.email}}
+						</div>
+						<div> <span id="email_error" style="color:red;" > </span> </div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
+							</div>
+							{{form.first_name}}
+						</div>
+						<div> <span id="fname_error" style="color:red;" > </span> </div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
+							</div>
+							{{form.last_name}}
+						</div>
+						<div> <span id="lname_error" style="color:red;" > </span> </div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-id-card" aria-hidden="true"></i></span>
+							</div>
+							{{form.license_number}}
+						</div>
+						<div> <span id="license_error" style="color:red;" > </span> </div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
+							</div>
+							{{form.office_address}}
+						</div>
+						<div> <span id="address_error" style="color:red;" > </span> </div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							{{form.password1}}
+						</div>
+						<div> <span id="pass1_error" style="color:red;" > </span> </div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							{{form.password2}}
+						</div>
+						<div> <span id="pass2_error" style="color:red;" > </span> </div>
+
+
+
+				   		<div class="d-flex justify-content-center mt-3 login_container">
+				 			<input class="btn login_btn" type="submit" value="Register Account">
+				   		</div>
+
+					</form>
+				</div>
+
+				{{form.errors}}
+
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+						/* Because i didnt set placeholder values in forms.py they will be set here using vanilla Javascript
+		//We start indexing at one because CSRF_token is considered and input field
+		 */
+
+		//Query All input fields
+		var form_fields = document.getElementsByTagName('input')
+		form_fields[1].placeholder='Username..';
+		form_fields[2].placeholder='Email..';
+		form_fields[3].placeholder='Enter first name...';
+		form_fields[4].placeholder='Enter last name...';
+		form_fields[5].placeholder='Enter license number...';
+		form_fields[6].placeholder='Enter office address...';
+		form_fields[7].placeholder='Enter Password...';
+		form_fields[8].placeholder='Re-enter Password...';
+
+
+		for (var field in form_fields){
+			form_fields[field].className += ' form-control'
+		}
+	</script>

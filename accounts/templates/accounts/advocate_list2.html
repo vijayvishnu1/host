@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Advocate Recommendations</title>
+</head>
+<body>
+	<h1>Recommended Advocates</h1>
+	{% if recommendations %}
+		<ul>
+			{% for advocate in recommendations %}
+				<li>{{ advocate.name }} ({{ advocate.score }})</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>No advocates found.</p>
+	{% endif %}
+</body>
+</html>

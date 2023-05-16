@@ -1,0 +1,30 @@
+{% extends 'accounts/clientheader.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Advocate Recommendation</h1>
+  {% if recommendations %}
+  <div class="row">
+    {% for recommendation in recommendations %}
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ recommendation.advocate.user.first_name }} {{ recommendation.advocate.user.last_name }}</h5>
+          <p class="card-text">Specialization: {{ recommendation.advocate.specifications }}</p>
+          <p class="card-text">Languages: {{ recommendation.advocate.languages }}</p>
+          <p class="card-text">Experience: {{ recommendation.advocate.experience }} years</p>
+          <p class="card-text">Office Address: {{ recommendation.advocate.office_address }}</p>
+          <p class="card-text">Court: {{ recommendation.advocate.court }}</p>
+          <p class="card-text">Cosine Similarity Score: {{ recommendation.cosine_similarity }}</p>
+          <p class="card-text">Hybrid Recommendation Score: {{ recommendation.hybrid_score }}</p>
+          <a href="{% url 'advocate_detail' recommendation.advocate.id %}" class="btn btn-primary">View Profile</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No recommendations available.</p>
+  {% endif %}
+</div>
+{% endblock %}

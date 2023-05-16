@@ -1,0 +1,77 @@
+{% extends 'accounts/advocateheader.html' %}
+{% block content %}
+<head>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+
+    <style>
+
+        #client-intro-card{
+            display: flex;
+            align-items: center;
+        }
+        #client-img{
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 100px;
+            margin-right: 20px;
+            border: 1px solid #000000;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header" id="client-intro-card">
+            <img src="{{ client_profiles.pimage.url }}" id="client-img" alt="Profile Picture">
+            <h3 class="card-title">Client Details</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item">Name: {{ client.user.get_full_name }}</li>
+            <li class="list-group-item">Phone Number: {{ client.phone_number }} </li>
+            <li class="list-group-item">Address: {{ client.address }} </li>
+            <li class="list-group-item">House Name: {{ client_profiles.house_name }} </li>
+             <li class="list-group-item">City: {{ client_profiles.city }} </li>
+             <li class="list-group-item">District: {{ client_profiles.district }} </li>
+             <li class="list-group-item">State: {{ client_profiles.state }} </li>
+             <li class="list-group-item">Post Office: {{ client_profiles.postoffice }} </li>
+                         <li class="list-group-item">PIN Code: {{ client_profiles.picode }} </li>
+                         <li class="list-group-item">Date of Birth: {{ client_profiles.date_of_birth }} </li>
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Case Details</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item">Title: {{ client_case.title }}</li>
+            <li class="list-group-item">Description: {{ client_case.description }}</li>
+          {% if client_case.proof %}
+    <li class="list-group-item">Proof: <a href="{{ client_case.proof.url }}" target="_blank">{{ client_case.proof.name }}</a></li>
+{% endif %}
+            <li class="list-group-item">Defendant Name: {{ client_case.defendant_name }}</li>
+            <li class="list-group-item">Defendant Address: {{ client_case.defendant_address }}</li>
+                        <li class="list-group-item">Case Type: {{ client_case.get_case_type_display }} Case</li>
+             <li class="list-group-item">View the full pdf
+              <a href="{% url 'user_pdf_view' client_case.case_id%}" target="_blank">
+                  <button class="btn btn-warning">Download pdf</button></a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+{% endblock %}

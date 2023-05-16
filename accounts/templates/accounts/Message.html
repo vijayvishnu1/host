@@ -1,0 +1,61 @@
+{% extends 'accounts/clientheader.html' %}
+{% load static %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<title>login form</title>
+<style type="text/css">
+body{
+	background:url('185289.jpg');
+	background-size:cover;
+	font-family:arial;
+}.wrap{
+	max-width:350px;
+	border-radius:20px;
+	margin:auto;
+	background:rgba(0,0,0,0.8);
+	box-sizing:border-box;
+	padding:40px;
+	color:#fff;
+	margin-top:100px;
+}
+
+h1{
+	text-align:center;
+	font-size: xx-large;
+	font-family: 'Courier New', monospace;
+	color:rgb(250, 249, 249);
+}
+
+.hp{
+	font-family: 'Courier New', monospace;
+	color:rgb(250, 249, 249);
+	text-align:center;
+	text-size:10px;
+}
+</style>
+</head>
+<body a link="white" vlink="white">
+<br>
+<br>
+<br>
+<div id="login-container">
+
+
+	<div class="wrap">
+		<h1>Message</h1>
+		<center>
+        <img  src="{% static 'images/bell.gif' %}">
+			</center>
+		{% for message in messages %}
+					<p class="hp" align="center" id="messages">{{message}}</p>
+				{% endfor %}
+
+
+
+</div>
+</div>
+</body>
+</html>
+{% endblock %}

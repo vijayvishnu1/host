@@ -1,0 +1,42 @@
+{% extends 'accounts/clientheader.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+<body>
+ <div class="sales-boxes">
+        <div class="recent-sales box">
+            <h2>Assign case to advocate</h2>
+             <div class="col">
+<form method="post" novalidate>
+  {% csrf_token %}
+<label>case</label>
+            {% render_field form.case class="form-control" %}
+
+    <br>
+<button type="submit" class="btn btn-success">
+                            <span class="icon is-small">
+                              <i class="fa fa-check"></i>
+                            </span>
+                            <span>Assign</span>
+                             </button>
+                             </button>
+        <button type="cancel" class="btn btn-danger" onclick="window.location='http://127.0.0.1:8000/advocate_list/';return false;"><span class="icon is-small">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+
+                            </span>
+                            <span>Cancel</span></button>
+
+
+</form>
+             </div>
+        </div>
+ </div>
+
+</body>
+
+{% endblock %}

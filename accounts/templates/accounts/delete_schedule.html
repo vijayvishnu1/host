@@ -1,0 +1,17 @@
+{% load static %}
+{% include 'accounts/advocateheader.html' %}
+
+
+{% block content %}
+  <div class="container">
+    <h1>Delete Schedule</h1>
+    <p>Are you sure you want to delete the schedule "{{ schedule.title }}"?</p>
+    <form method="post" action="{% url 'schedule_delete' schedule.pk %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'schedule_view' %}" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

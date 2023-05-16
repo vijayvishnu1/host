@@ -1,0 +1,141 @@
+{% extends 'accounts/clientheader.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<head>
+<style>
+
+/*.phone{*/
+/*  position: absolute;*/
+/*  top: 530px;*/
+/*  left:400px;*/
+/*}*/
+/*.email{*/
+/*  position: absolute;*/
+/*  top: 550px;*/
+/*  left:360px;*/
+/*}*/
+
+
+  .card {
+  background-color: #fff;!important;
+  border: 1px solid #ddd;!important;
+  border-radius: 5px;!important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);!important;
+  margin-bottom: 20px;!important;
+  padding: 20px;!important;
+  width: 100%;!important;
+}
+
+.card-header {
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+  border-radius: 5px 5px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+  margin: -20px -20px 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.card-body {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+</style>
+</head>
+<body>
+ <div class="sales-boxes">
+        <div class="recent-sales box">
+
+<center>
+          <img src="{{ advocate.advocate.pimage.url }}" style="border-radius: 50%; "  width="300" height="300"  alt="Advocate Image">
+
+            <div><h1 style="font-family:'Lucida Bright';">Advocate : {{ advocate.get_full_name }}</h1></div>
+          <div class="phone">
+          <i class="fa fa-phone" aria-hidden="true"></i>
+          {{ advocate.advocate.phone_number }}<br>
+            </div>
+            <div class="email">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+          {{ advocate.email }}
+                </div>
+      </center>
+  <div class="sales-details">
+
+          </div>
+
+        </div>
+        <div class="top-sales box">
+          <div class="title">Actions</div>
+
+                            <a href="{% url 'add_review' advocate.id %}"  ><button class="btn btn-primary">
+                            <span class="icon is-small">
+                             <i class="fa fa-comments-o" aria-hidden="true"></i>
+                            </span>
+                            <span>Give a feedback</span>
+                             </button></a>
+
+                             <a href="{% url 'view_feedback' advocate.id %}"  ><button class="btn btn-warning">
+                            <span class="icon is-small">
+<i class="fa fa-commenting-o" aria-hidden="true"></i>
+                            </span>
+                            <span>Publc opinion </span>
+                             </button></a>
+<!--                            <a href=""  ><button class="btn btn-success">-->
+<!--                            <span class="icon is-small">-->
+<!--                              <i class="fa fa-check"></i>-->
+<!--                            </span>-->
+<!--                            <span>Save</span>-->
+<!--                             </button></a>-->
+<!--                            <a href=""  ><button class="btn btn-success">-->
+<!--                            <span class="icon is-small">-->
+<!--                              <i class="fa fa-check"></i>-->
+<!--                            </span>-->
+<!--                            <span>Save</span>-->
+<!--                             </button></a>-->
+          </div>
+      </div>
+<br>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Communication</div>
+      <div class="card-body">
+        <p>Phone: {{ advocate.advocate.phone_number }}</p>
+        <p>Email: {{ advocate.email }}</p>
+        <p>Office: {{ advocate.advocate.office_address }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Professional Details</div>
+      <div class="card-body">
+        <p>Experience: {{ advocate.advocate.experience }} years</p>
+        <p>Specialization: {{ advocate.advocate.get_specifications_display }} Lawyer</p>
+        <p>Languages: {{ advocate.advocate.get_languages_display }}</p>
+        <p>Courts: {{ advocate.advocate.court }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="card">
+  <div class="card-header">Advocate Bio</div>
+  <div class="card-body">
+    <p>{{ advocate.advocate.description }}</p>
+  </div>
+</div>
+</body>
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+
+{% extends 'accounts/advocateheader.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container my-5">
+  <h2>Schedule Manager</h2>
+  <a href="{% url 'add_schedule' %}" class="btn btn-primary mb-3">Add Schedule</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Time</th>
+        <th scope="col">Description</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for schedule in schedules %}
+      <tr>
+        <td>{{ schedule.date }}</td>
+        <td>{{ schedule.start_time }}</td>
+        <td>{{ schedule.end_time }}</td>
+        <td>{{ schedule.description }}</td>
+        <td>
+          <a href="{% url 'edit_schedule' schedule.pk %}" class="btn btn-warning">Edit</a>
+          <form action="{% url 'schedule_delete' schedule.pk %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+</body>
+
+
+
+
+{% endblock %}

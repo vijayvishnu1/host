@@ -1,0 +1,257 @@
+{% load widget_tweaks %}
+{% load static %}
+{% include 'accounts/advocateheader.html' %}
+{% block content %}
+<style>
+
+  .move{
+  position: absolute;
+    top: 100px;
+    left: 300px;
+    width: 1000px  ;
+  }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+ <div class="move">
+  <div class="container mt-4">
+    <h1 class="mb-4">Update Advocate Profile</h1>
+    <form method="POST" enctype="multipart/form-data" class="row">
+      {% csrf_token %}
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="license_number">License Number:</label>
+          <input type="text" name="license_number" class="form-control" value="{{ advocate.license_number }} " id="license_number" onkeyup="validate_license()">
+            <div> <span id="license_number_error" style="color:red;" > </span> </div>
+        </div>
+        <div class="form-group">
+          <label for="office_address">Office Address:</label>
+          <input type="text" name="office_address" class="form-control" value="{{ advocate.office_address }}" id ="address11" onkeyup="address()">
+        <div> <span id="address_error" style="color:red;" > </span> </div>
+        </div>
+        <div class="form-group">
+          <label for="phone_number">Phone Number:</label>
+          <input type="text" name="phone_number" class="form-control" value="{{ advocate.phone_number }}" id="mobile1" onkeyup="mobile()">
+                <div> <span id="mobile_error" style="color:red;" > </span> </div>
+        </div>
+        <div class="form-group">
+          <label for="experience">Experience:</label>
+          <input type="text" name="experience" class="form-control" value="{{ advocate.experience }}" id="expervalue" onkeyup="experiencevalid()">
+             <div> <span id="experror" style="color:red;" > </span> </div>
+        </div>
+        <div class="form-group">
+          <label for="specifications">Specializations:</label>
+          <select name="specifications" class="form-control" onchange="validateSpecializations()">
+            {% for choice in advocate.SPECIFICATIONS %}
+              <option value="{{ choice.0 }}" {% if choice.0 == advocate.specifications %}selected{% endif %}>{{ choice.1 }}</option>
+            {% endfor %}
+          </select>
+              <div> <span id="specifications_error" style="color:red;"></span> </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="languages">Languages:</label>
+          <select name="languages" class="form-control" onchange="validatelanguage()">
+            {% for choice in advocate.Languages %}
+              <option value="{{ choice.0 }}" {% if choice.0 == advocate.languages %}selected{% endif %}>{{ choice.1 }}</option>
+            {% endfor %}
+          </select>
+            <div> <span id="language_error" style="color:red;"></span> </div>
+
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea name="description" class="form-control" id="discrip1" onkeyup='description1()'>{{ advocate.description }}</textarea>
+        </div>
+          <div> <span id="diserror" style="color:red;"></span> </div>
+
+        <div class="form-group">
+  <label for="pimage">Profile Image:</label>
+  {% if advocate.pimage %}
+    <h6>Current profile image: {{ advocate.pimage }}</h6>
+  {% endif %}
+  <input type="file" name="pimage" class="form-control-file" id="profileImage" onchange="validateImage()">
+  <div> <span id="imageError" style="color:red;"></span> </div>
+</div>
+<div class="form-group">
+  <label for="dob">Date of Birth:</label>
+  <input type="date" name="dob" class="form-control" value="{{ advocate.dob|date:'Y-m-d' }}" min="1950-01-01" max="2003-12-31" onchange="dobValidation()">
+  <div> <span id="dobError" style="color:red;"></span> </div>
+</div>
+
+        <div class="form-group">
+          <label for="court">Courts Practiced:</label>
+          <input type="text" name="court" class="form-control" value="{{ advocate.court }}" id="courtvalue" onkeyup="courtvalid()">
+        </div>
+            <div> <span id="court_error" style="color:red;"></span> </div>
+
+      </div>
+      <div class="col-md-12 text-center">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+          <a href="{% url 'Advocateprofile' %}" class="btn btn-warning">Cancel</a>
+
+      </div>
+
+    </form>
+  </div>
+</div>
+<script>
+function validate_license()
+{
+    var lno = document.getElementById('license_number').value;
+    if (lno == "") {
+        document.getElementById('license_number_error').innerHTML = "The license number can't be null";
+        return false;
+    }
+    else if (!/^[A-Za-z0-9/]+$/.test(lno)) {
+        document.getElementById('license_number_error').innerHTML = "Invalid characters, kindly enter in a valid format";
+        return false;
+    }
+    else {
+        document.getElementById('license_number_error').innerHTML = "";
+        return true;
+    }
+}
+
+function address() {
+    var address1 = document.getElementById('address11').value;
+    if (address1 == "") {
+        document.getElementById('address_error').innerHTML = "Office address field can't be null";
+        return false;
+    } else if (!/^[\w\s,./-]+$/.test(address1)) {
+        document.getElementById('address_error').innerHTML = "Invalid characters and format for office address";
+        return false;
+    } else {
+        document.getElementById('address_error').innerHTML = " ";
+        return true;
+    }
+}
+
+function mobile() {
+    var mobile = document.getElementById('mobile1').value;
+    if (mobile == "") {
+        document.getElementById('mobile_error').innerHTML = "Mobile number can't be null";
+        return false;
+    } else if (!/^[6789]\d{9}$/.test(mobile)) {
+        document.getElementById('mobile_error').innerHTML = "Invalid mobile number";
+        return false;
+    } else {
+        document.getElementById('mobile_error').innerHTML = " ";
+        return true;
+    }
+}
+function experiencevalid(){
+    var exp=document.getElementById('expervalue').value;
+    if(exp==""){
+        document.getElementById('experror').innerHTML = "Experience field cant be empty";
+        return false;
+    }
+    else if(!/^[0-9/]+$/.test(exp)){
+        document.getElementById('experror').innerHTML = "Experience value must be numerical";
+        return false;
+    }
+    else if(!/^(?:[0-5]?[0-9]|60)$/.test(exp)){
+        document.getElementById('experror').innerHTML = "Experience value must be between 0 and 60";
+        return false;
+}
+    else{
+        document.getElementById('experror').innerHTML = " ";
+        return true;
+    }
+}
+function validateSpecializations() {
+  var selectedOption = document.querySelector('select[name="specifications"] option:checked');
+  if (!selectedOption) {
+    document.getElementById('specifications_error').innerHTML = "Specializations field can't be empty";
+    return false;
+  } else {
+    document.getElementById('specifications_error').innerHTML = "";
+    return true;
+  }
+}
+function validatelanguage() {
+  var selectedOption = document.querySelector('select[name="languages"] option:checked');
+  if (!selectedOption) {
+    document.getElementById('language_error').innerHTML = "Language field can't be empty";
+    return false;
+  } else {
+    document.getElementById('language_error').innerHTML = "";
+    return true;
+  }
+}
+function description1() {
+  var d = document.getElementById('discrip1').value;
+  var wordCount = d.trim().split(/\s+/).length;
+
+  if (d == "") {
+    document.getElementById('diserror').innerHTML = "Field can't be empty";
+    return false;
+  } else if (!/^[a-zA-Z0-9\s.,?!()-]*$/.test(d)) {
+    document.getElementById('diserror').innerHTML = "Invalid characters";
+    return false;
+  } else if (wordCount < 25) {
+    document.getElementById('diserror').innerHTML = "Description must have at least 25 words";
+    return false;
+  } else {
+    document.getElementById('diserror').innerHTML = "";
+    return true;
+  }
+}
+function validateImage() {
+  var file = document.getElementById("profileImage").files[0];
+  var imageError = document.getElementById("imageError");
+
+  if (!file) {
+    imageError.innerHTML = "Please select a file.";
+    return false;
+  }
+
+  if (!file.type.includes("image")) {
+    imageError.innerHTML = "Please select an image file.";
+    return false;
+  }
+
+  if (file.size > 5000000) {
+    imageError.innerHTML = "File size should not exceed 5 MB.";
+    return false;
+  }
+
+  imageError.innerHTML = "";
+  return true;
+}
+function dobValidation() {
+  var dob = document.getElementsByName("dob")[0].value;
+  var minDob = "1950-01-01";
+  var maxDob = "2003-12-31";
+
+  if (dob == "") {
+    document.getElementById("dobError").innerHTML = "Date of Birth field can't be empty";
+    return false;
+  } else if (dob < minDob || dob > maxDob) {
+    document.getElementById("dobError").innerHTML = "Date of Birth should be between " + minDob + " and " + maxDob;
+    return false;
+  } else {
+    document.getElementById("dobError").innerHTML = "";
+    return true;
+  }
+}
+function courtvalid() {
+    var cou = document.getElementById('courtvalue').value;
+    if (cou == "") {
+        document.getElementById('court_error').innerHTML = " field can't be null";
+        return false;
+    } else if (!/^[\w\s,./-]+$/.test(cou)) {
+        document.getElementById('court_error').innerHTML = "Invalid characters and format for court";
+        return false;
+    } else {
+        document.getElementById('court_error').innerHTML = " ";
+        return true;
+    }
+}
+
+
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'accounts/clientheader.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
+<head>
+           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <style>
+.move{
+  position: absolute;
+    top: 100px;
+    left: 150px;
+    width: 1000px  ;
+  }
+
+
+    </style>
+    <script>
+        function description1() {
+  var d = document.getElementById('discrip1').value;
+  var wordCount = d.trim().split(/\s+/).length;
+
+  if (d == "") {
+    document.getElementById('diserror').innerHTML = "Field can't be empty";
+    return false;
+  } else if (!/^[a-zA-Z0-9\s.,?!()-]*$/.test(d)) {
+    document.getElementById('diserror').innerHTML = "Invalid characters";
+    return false;
+  } else if (wordCount < 10) {
+    document.getElementById('diserror').innerHTML = "Feedback must have at least 10 words";
+    return false;
+  } else {
+    document.getElementById('diserror').innerHTML = "";
+    return true;
+  }
+}
+
+    </script>
+
+
+</head>
+<body>
+ <div class="move">
+ <h3>Add Review for Advocate {{ advocate.user.get_full_name }}</h3>
+
+  <form method="POST">
+    {% csrf_token %}
+
+<div class="mb-3">
+  <label  class="form-label">Rating</label>
+    {% render_field form.rating   id="star"  class="form-control"  %}
+</div>
+<div class="mb-3">
+  <label class="form-label">Write your Feedback</label>
+        {% render_field form.comment   id="discrip1"  class="form-control" onkeyup="description1()"  %}
+   <div> <span id="diserror" style="color:red;" > </span> </div>
+
+</div>
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+
+  </form>
+        </div>
+ </body>
+{% endblock %}

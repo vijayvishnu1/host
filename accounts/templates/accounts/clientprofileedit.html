@@ -1,0 +1,239 @@
+{% extends 'accounts/clientheader.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+
+<html>
+<head>
+<style>
+
+     .move{
+  position: absolute;
+    top: 100px;
+    left: 300px;
+    width: 1000px  ;
+  }
+    </style>
+    <script>
+        function housenamevalid()
+         {
+
+             var title = document.getElementById('house').value;
+             if(title=="")
+        	 {
+                 document.getElementById('h_error').innerHTML="house name  cant be empty";
+                 return false;
+             }
+             else if(/^[a-zA-Z0-9-/\s/]+$/.test(title) == false)
+             {
+                 document.getElementById('h_error').innerHTML="cant use special characters";
+                 return false;
+             }
+
+             else if (title.length < 5)
+ 		     {
+                 document.getElementById('h_error').innerHTML="minimum of 5 characters required";
+                 return false;
+   			 }
+   			 else if(/^[a-zA-Z-/\s/]+$/.test(title) == true && title.length > 5)
+             {
+                 document.getElementById('h_error').innerHTML="";
+                 return true;
+             }
+   			 else{
+   			 document.getElementById('h_error').innerHTML="";
+                     return true; }
+   		 }
+   		  function districtvalid()
+         {
+
+             var t = document.getElementById('district').value;
+             if(t=="")
+        	 {
+                 document.getElementById('d_error').innerHTML="district field  cant be empty";
+                 return false;
+             }
+             else if(/^[a-zA-Z]+$/.test(t) == false)
+             {
+                 document.getElementById('d_error').innerHTML="cant use special characters";
+                 return false;
+             }
+
+   			 else{
+   			 document.getElementById('d_error').innerHTML="";
+                     return true;}
+   		 }
+   		  function cityvalid()
+         {
+
+             var t = document.getElementById('city').value;
+             if(t=="")
+        	 {
+                 document.getElementById('c_error').innerHTML="city field  cant be empty";
+                 return false;
+             }
+             else if(/^[a-zA-Z]+$/.test(t) == false)
+             {
+                 document.getElementById('c_error').innerHTML="cant use special characters";
+                 return false;
+             }
+
+   			 else{
+   			 document.getElementById('c_error').innerHTML="";
+                     return true;}
+   		 }
+   		 	  function statevalid()
+         {
+
+             var t = document.getElementById('state').value;
+             if(t=="")
+        	 {
+                 document.getElementById('s_error').innerHTML=" field  cant be empty";
+                 return false;
+             }
+             else if(/^[a-zA-Z]+$/.test(t) == false)
+             {
+                 document.getElementById('s_error').innerHTML="cant use special characters";
+                 return false;
+             }
+
+   			 else{
+   			 document.getElementById('s_error').innerHTML="";
+                     return true;}
+   		 }
+   		  function postvalid()
+         {
+
+             var t = document.getElementById('postoffice').value;
+             if(t=="")
+        	 {
+                 document.getElementById('p_error').innerHTML=" field  cant be empty";
+                 return false;
+             }
+             else if(/^[a-zA-Z]+$/.test(t) == false)
+             {
+                 document.getElementById('p_error').innerHTML="cant use special characters";
+                 return false;
+             }
+
+   			 else{
+   			 document.getElementById('c_error').innerHTML="";
+                     return true;}
+   		 }
+
+   		 function pinvalid()
+         {
+
+             var t = document.getElementById('pincode').value;
+             if(t=="")
+        	 {
+                 document.getElementById('pin_error').innerHTML=" field  cant be empty";
+                 return false;
+             }
+              else if(/^[0-9/]+$/.test(t) == false)
+             {
+                 document.getElementById('pin_error').innerHTML="numbers are only allowed";
+                 return false;
+             }
+             else if (t.length < 6)
+             {
+             document.getElementById('pin_error').innerHTML="minimum of 6 numbers";
+                 return false;
+             }
+             else if (t.length > 6)
+             {
+             document.getElementById('pin_error').innerHTML="maximum  6 numbers are permitted";
+                 return false;
+             }
+
+   			 else{
+   			 document.getElementById('pin_error').innerHTML="";
+                     return true;}
+              }
+              function validate() {
+var uploadcontrol = document.getElementById("image").value;
+//Regular Expression for fileupload control.
+var reg = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.jpg|.JPG|.jpeg|.JPEG|.gif|.GIF| .png|.PNG)$/;
+if (uploadcontrol.length > 0)
+{
+//Checks with the control value.
+if (reg.test(uploadcontrol))
+{
+return true;
+}
+else
+{
+//If the condition not satisfied shows error message.
+alert("Only image files are allowed!");
+return false;
+}
+}
+}
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+<body>
+ <div class="card">
+  <h5 class="card-header">Update Your Profile</h5>
+  <div class="card-body">
+    <div class="container">
+      <form method="POST" enctype="multipart/form-data" autocomplete="off">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>House Name:</label>
+              {% render_field form.house_name class='form-control' placeholder="Enter your house name" type="text" id="house" onkeyup="housenamevalid()" %}
+              <div> <span id="h_error" style="color:red;"> </span> </div>
+            </div>
+            <div class="form-group">
+              <label>City:</label>
+              {% render_field form.city class='form-control' placeholder="Enter your city" type="text" id="city" onkeyup="cityvalid()" %}
+              <div> <span id="c_error" style="color:red;"> </span> </div>
+            </div>
+            <div class="form-group">
+              <label>District:</label>
+              {% render_field form.district class='form-control' placeholder="Enter your district" type="text" id="district" onkeyup="districtvalid()" %}
+              <div> <span id="d_error" style="color:red;"> </span> </div>
+            </div>
+            <div class="form-group">
+              <label>State:</label>
+              {% render_field form.state class='form-control' placeholder="Enter your state" type="text" id="state" onkeyup="statevalid()" %}
+              <div> <span id="s_error" style="color:red;"> </span> </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Post office:</label>
+              {% render_field form.postoffice class='form-control' placeholder="Enter your post office" type="text" id="postoffice" onkeyup="postvalid()" %}
+              <div> <span id="p_error" style="color:red;"> </span> </div>
+            </div>
+            <div class="form-group">
+              <label>Pincode:</label>
+              {% render_field form.picode class='form-control' placeholder="Enter your pincode" type="text" id="pincode" onkeyup="pinvalid()" %}
+              <div> <span id="pin_error" style="color:red;"> </span> </div>
+            </div>
+            <div class="form-group">
+              <label>Enter your dob:</label>
+              {% render_field form.date_of_birth class='form-control' placeholder="Enter your dob" type="date" id="date" min="1990-01-01" max="2003-12-30" %}
+            </div>
+            <div class="form-group">
+              <label>Choose your profile image:</label>
+              {% render_field form.pimage id="image" onkeyup="" %}
+            </div>
+          </div>
+        </div>
+          <center>
+<button type="submit" class="btn btn-success" onclick="return validate()"><i class="fa fa-check"></i> Submit</button>
+<button class="btn btn-danger" onclick="window.location='http://127.0.0.1:8000/clienthome/';return false;"><i class="fa fa-times"></i> Cancel</button>
+
+              </center>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+{% endblock %}

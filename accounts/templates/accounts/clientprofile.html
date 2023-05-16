@@ -1,0 +1,84 @@
+{% extends 'accounts/clientheader.html' %}
+{% load static %}
+{% block content %}
+<head>
+
+		        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<style>
+
+
+</style>
+
+</head>
+<body>
+<div class="move">
+<div class="card">
+  <h5 class="card-header">Client Profile</h5>
+  <div class="card-body">
+	  {% for p in obj %}
+	  <center>
+	<img style="width: 150px;height: 150px; border-radius: 80px;" src="{{p.pimage.url}}"  alt="user" />
+		 <br> <br>  <h5 class="card-title">User name &nbsp;:  &nbsp;{{request.user}} </h5>
+		  </center>
+	 {% endfor %}
+
+
+
+	  <div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Primary Information</h5>
+
+		  <p class="card-text">First name: {{request.user.first_name}}</p>
+
+	      <p class="card-text">last name: {{request.user.last_name}}</p>
+	  {% for con in con%}
+	      <p class="card-text">Contact: {{con.phone_number}}</p>
+	  	{% endfor %}
+	      <p class="card-text">Email: {{request.user.email}}</p>
+		 {% if request.user.is_client == True and  request.user.clientprofiles_set.all == 0 %}
+    <a href="{% url 'Clientprofile' %}" class="btn btn-success">Add additional</a>
+{% endif %}
+
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Additional Information</h5>
+		  {% if obj %}
+		  {% for p in obj %}
+
+        <p class="card-text">House name : {{ p.house_name }}</p>
+		  <p class="card-text">City : {{ p.city }}</p>
+		   <p class="card-text">District : {{ p.district }}</p>
+		   <p class="card-text">State : {{ p.state }}</p>
+		   <p class="card-text">Post office : {{ p.postoffice }}</p>
+		   <p class="card-text">Pincode : {{ p.picode }}</p>
+		   <p class="card-text">Dob :{{ p.date_of_birth }}</p>
+		   <p class="card-text">adult : {{ p.adult }}</p>
+		   <p class="card-text"></p>
+		   <p class="card-text"></p>
+		   {% if request.user.is_client == True  %}
+		   <a href="{% url 'clientprofileupdate' p.id %}" class="btn btn-warning"><i class="fa fa-arrow-up" aria-hidden="true"></i> &nbsp;update</a>
+		  {% endif %}
+
+		  {% endfor %}
+		   {% else %}
+            <p class="card-text">No additional information available.</p>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+
+</div>
+</body>
+</div>
+{% endblock content %}

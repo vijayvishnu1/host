@@ -1,0 +1,215 @@
+{% load static %}
+<!--<!DOCTYPE html>-->
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Responsiive Admin Dashboard | CodingLab </title>
+    <link rel="stylesheet" href="{% static '/css/navstyle.css' %}">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-QwDn4a4G4f4SR/PKjxfiNvK0Ahn1ZpNf6oR+f6oMv6UW8yUqwm6x/2QvCjKilHlXmzP+MeXB5m5w5f5Wvmzs5A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-ME20+JtCvQ2KjSxIg+otWXbzjhDjKlqnhKA5+5/Myn2gB5jRfujbbJc1klflBzec5efvLLZ9WmbZ8j1DAXdU6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script>
+
+
+</script>
+    <style>
+
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color: transparent !important;
+  color: transparent !important;
+  /*padding: 16px;*/
+  border: none;
+  /*cursor: pointer;*/
+  border-radius: 5px;
+    left: 20px;!important;
+  top: 10px;
+
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: -40px;
+  background-color: #fff !important;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #000 !important;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #f1f1f1 !important;
+  color: #000 !important;
+}
+
+
+/*****/
+
+
+
+</style>
+
+
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <i class="fa fa-balance-scale" aria-hidden="true"></i>
+      <span class="logo_name">Dashboard</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="{% url 'advocatehome' %}" class="active">
+          <i class="fa fa-home" aria-hidden="true"></i>
+          <span class="links_name">Home</span>
+        </a>
+      </li>
+
+       <li>
+        <a href="{% url 'advocate_caserequest_assignments_view' %}">
+<i class="fa fa-eye" aria-hidden="true"></i>
+          <span class="links_name">View Requests</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="{% url 'Advclient' %}">
+          <i class="fa fa-male" aria-hidden="true"></i>
+
+          <span class="links_name">Client</span>
+        </a>
+      </li>
+      <li>
+         <a href="{% url 'create_case' %}">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+          <span class="links_name">create</span>
+        </a>
+      </li>
+
+              <li>
+        <a href="{% url 'advocate_chat' %}">
+<i class="fa fa-whatsapp" aria-hidden="true"></i>
+            <span class="links_name">Messages</span>
+        </a>
+      </li>
+
+
+      <li>
+          <a href="{% url 'feedbackadvocateview' %}">
+          <i class="fa fa-handshake-o" aria-hidden="true"></i>
+
+          <span class="links_name">feedback</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'AdvocateContactus' %}">
+          <i class='bx bx-book-alt' ></i>
+          <span class="links_name">Contact us</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'predict_document_type' %}">
+          <i class='bx bx-user' ></i>
+          <span class="links_name">Document</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'schedule_view' %}">
+          <i class='bx bx-message' ></i>
+          <span class="links_name">Schedule</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="{% url 'Advocateprofile' %}">
+          <i class='bx bx-cog' ></i>
+          <span class="links_name">Profile Settings</span>
+        </a>
+      </li>
+      <li class="log_out">
+        <a href="{% url 'logout' %}">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <img src="{% static '/images/acase.png' %}" width="60" height="60"alt="Your Image">
+        &nbsp; &nbsp; <span class="dashboard">My Attorney</span>
+        <img src="{% static '/images/lionlogo.png' %}" width="60" height="60"alt="Your Image">
+          <img src="{% static '/images/digitalindia.png' %}" width="140" height="70"alt="Your Image">
+
+      </div>
+
+<div class="profile-details" id="dropdown">
+  <img src="{{ request.user.advocate.pimage.url }}" alt="">
+  <span class="admin_name">{{request.user}}</span>
+  <div class="dropdown">
+ <button class="dropbtn"><i class="fa fa-user-circle" aria-hidden="true"></i>
+</button>
+  <div class="dropdown-content">
+    <a href="{% url 'Advocateprofile' %}"><i class="fa fa-user-secret" aria-hidden="true"></i>Profile</a>
+    <a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+<!--    <a href="#">Link 3</a>-->
+  </div>
+</div>
+
+</div>
+    </nav>
+
+    <div class="home-content">
+
+      {% block content %}
+      {% endblock %}
+    </div>
+  </section>
+
+  <script>
+   let sidebar = document.querySelector(".sidebar");
+let sidebarBtn = document.querySelector(".sidebarBtn");
+sidebarBtn.onclick = function() {
+  sidebar.classList.toggle("active");
+  if(sidebar.classList.contains("active")){
+  sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+}else
+  sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+}
+ </script>
+
+</body>
+</html>
